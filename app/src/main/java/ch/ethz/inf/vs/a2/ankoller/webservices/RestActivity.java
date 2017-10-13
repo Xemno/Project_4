@@ -6,6 +6,8 @@ import android.os.Bundle;
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.SensorListener;
 
 public class RestActivity extends AppCompatActivity implements SensorListener{
+    //TODO implement methods, this activity has to implement the interface sensorlistener
+    // so that activity can be informed upon reception of the temperature value
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

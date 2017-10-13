@@ -7,10 +7,14 @@ import ch.ethz.inf.vs.a2.ankoller.webservices.http.HttpRawRequest;
  */
 
 public class HttpRawRequestImpl implements HttpRawRequest {
+    private final String HTTP_VERSION="1.1";
+    private final String ENDL="\r\n";
+
     @Override
     public String generateRequest(String host, int port, String path) {
-        return null;
+
         //TODO implement this
         //GENERATE A RAW http get REQUEST
+    return null;
     }
 }

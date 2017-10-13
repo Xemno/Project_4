@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     public void onButtonClick(View v) {
         Intent intent;
         switch (v.getId()) {
-            //swtich
+            //switch
             case R.id.btn_rest:
                 intent = new Intent(this, RestActivity.class);
                 break;
@@ -29,6 +29,5 @@ public class MainActivity extends AppCompatActivity {
                 return;
         }
         startActivity(intent);
-        //hello
     }
 }
