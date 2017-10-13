@@ -11,7 +11,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
     public void onButtonClick(View v) {
         Intent intent;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(this, ServerActivity.class);
                 break;
             default:
-                return;//11
+                return;
         }
         startActivity(intent);
     }
