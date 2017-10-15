@@ -15,8 +15,9 @@ import java.net.URL;
 
 
 
-class XmlSensor extends AbstractSensor {
+public class XmlSensor extends AbstractSensor {
 
+    //public XmlSensor() {}
 
     @Override
     public String executeRequest() throws Exception {
@@ -29,6 +30,7 @@ class XmlSensor extends AbstractSensor {
         connection.setDoOutput(true);
         connection.setRequestMethod("POST");
 
+        // http://vslab.inf.ethz.ch:8080/SunSPOTWebServices/SunSPOTWebservice?Tester and then getDiscoveredSpots()
         String requestString = "<?xml version='1.0' encoding='UTF-8'?><S:Envelope xmlns:S='http://schemas.xmlsoap.org/soap/envelope/'>";
         requestString += "<S:Header/>";
         requestString += "<S:Body>";
@@ -45,7 +47,7 @@ class XmlSensor extends AbstractSensor {
         connection.getOutputStream().write(reqStrBytes);
 
         int responseCode = connection.getResponseCode();
-        //Log.d("LOG", String.valueOf(responseCode));
+
         if (responseCode == 200) {
 
             BufferedReader responseReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -73,12 +75,11 @@ class XmlSensor extends AbstractSensor {
             factory.setNamespaceAware(true);
             XmlPullParser xpp = factory.newPullParser();
 
-            xpp.setInput( new StringReader(response) );
+            xpp.setInput(new StringReader(response) );
 
-            int eventType = xpp.getEventType();
 
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-                if(eventType == XmlPullParser.START_TAG) {
+            while (xpp.getEventType() != XmlPullParser.END_DOCUMENT) {
+                if (xpp.getEventType() == XmlPullParser.START_TAG) {
                     if (xpp.getName().equals("temperature")) {
                         xpp.next();
                         if (xpp.getEventType() == XmlPullParser.TEXT) {
@@ -86,9 +87,8 @@ class XmlSensor extends AbstractSensor {
                         }
                     }
                 }
-                    xpp.next();
+                xpp.next();
             }
-
 
         }catch (Exception ex){
             ex.printStackTrace();
