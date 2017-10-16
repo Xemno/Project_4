@@ -99,8 +99,8 @@ public class ServerActivity extends AppCompatActivity {
         }
         else {
             stopService(new Intent(this, Server.class));
-            tv_port.setText(DEFAULT_IP);
-            tv_ip.setText(DEFAULT_PORT);
+            tv_port.setText(DEFAULT_PORT);
+            tv_ip.setText(DEFAULT_IP);
         }
     }
 }
