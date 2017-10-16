@@ -12,11 +12,9 @@ public class HttpRawRequestImpl implements HttpRawRequest {
 
     @Override
     public String generateRequest(String host, int port, String path) {
+
         String request= generateRequestExtended(host,port, path, "text/plain");
         return request;
-
-        //TODO implement this
-        //GENERATE A RAW http get REQUEST
 
     }
     public String generateRequestExtended(String host, int port, String path, String accept) {

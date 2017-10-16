@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ch.ethz.inf.vs.a2.ankoller.webservices">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,10 +20,8 @@
         </activity>
         <activity android:name=".ServerActivity" />
         <activity android:name=".SoapActivity" />
-        <activity android:name=".RestActivity"></activity>
+        <activity android:name=".RestActivity" />
 
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

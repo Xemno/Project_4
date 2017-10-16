@@ -1,8 +1,5 @@
 package ch.ethz.inf.vs.a2.ankoller.webservices.sensor;
 
-
-
-
 public abstract class SensorFactory {
 	public static Sensor getInstance(Type type) {
 		switch (type) {

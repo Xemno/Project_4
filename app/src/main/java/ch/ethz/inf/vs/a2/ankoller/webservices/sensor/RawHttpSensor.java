@@ -18,6 +18,8 @@ import ch.ethz.inf.vs.a2.ankoller.webservices.res.HttpRawRequestImpl;
 
 class RawHttpSensor extends AbstractSensor implements RemoteServerConfiguration {
     public static final String SENSOR_PATH = "http://vslab.inf.ethz.ch:8081/sunspots/";
+    //TODO: müesst das nicht: /sunspots/Spot1/sensors/temperature sein?
+
     public static final String TAG="HttpRawSensor > Log";
 
     @Override
@@ -39,10 +41,10 @@ class RawHttpSensor extends AbstractSensor implements RemoteServerConfiguration 
         BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
         //Reads text from a character-input stream
 
-        String response="";
+        String response = "";
         String temp;
-        while((temp= bufferedReader.readLine())!=null){
-            response+= "\n" + temp;
+        while((temp = bufferedReader.readLine())!=null){
+            response += "\n" + temp;
         }
         bufferedReader.close();
         //Closes the stream and releases any system resources associated with it.
