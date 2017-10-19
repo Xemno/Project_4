@@ -11,12 +11,44 @@
     <!---RadtioButton allow user to select one option
     used for optional sets that are mutually exlusive
     for ex you can selct between 3 different things
+    In the textview is some padding needed, that it is not behind the buttons but below
     -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/displayvalue_view"
-
+        android:paddingTop="20dp"
+        android:paddingEnd="60dp"
+        android:paddingStart="60dp"
+        android:layout_above="@+id/radio_group"
         />
+
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text= "RAW HTTP "
+            android:id="@+id/radio_group_http"
+            android:onClick="onRadioButtonClick"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text= "TEXT"
+            android:id="@+id/radio_group_textsensor"
+            android:onClick="onRadioButtonClick"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text= "JSON"
+            android:id="@+id/radio_group_jsonsensor"
+            android:onClick="onRadioButtonClick"/>
+    </RadioGroup>
 
 </RelativeLayout>

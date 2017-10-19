@@ -1,5 +1,9 @@
 package ch.ethz.inf.vs.a2.ankoller.webservices.sensor;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -10,7 +14,7 @@ import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfigurat
  * Created by anja on 13.10.2017.
  */
 
-class TextSensor extends AbstractSensor implements Sensor {
+public class TextSensor extends AbstractSensor implements Sensor {
 //implement missing methods
     //create requests by invoking openConnection() on a java.net.URL object
     //set header fields with setRequestProperty(header,value) on the
@@ -25,13 +29,36 @@ private static final String SENSOR_PATH = "/sunspots/Spot1/sensors/temperature";
         //set header fields
         urlConnection.setRequestProperty("Accept", "text/plain");
        String response= "";
-      //TODO inputstream add and separate with \n and at end disconnect
+      // inputstream add and separate with \n and at end disconnect
+        try{
+            InputStream inputStream= new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
+            String responsestring;
+            while((responsestring=bufferedReader.readLine())!=null){
+                response +="\n" + responsestring;
+            }
+            bufferedReader.close();
+        } finally{
+            urlConnection.disconnect();
+        }
         return response;
     }
+    //sent and receive the url connection and at the end disconnect, after every
+    //header we have a newline
+
 
     @Override
     public double parseResponse(String response) {
-        return 0;
+        //similar to RawHttpSensor
+        double result;
+        try{
+            result=Double.valueOf(response);
+        }catch(Exception e){
+            result=Double.NaN;
+
+        }
+
+        return result;
     }
 
     @Override
