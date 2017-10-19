@@ -1,11 +1,11 @@
 package ch.ethz.inf.vs.a2.ankoller.webservices;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.AbstractSensor;
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.JsonSensor;
@@ -13,83 +13,77 @@ import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.RawHttpSensor;
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.SensorListener;
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.TextSensor;
 
-public class RestActivity extends AppCompatActivity implements SensorListener{
-    //TODO implement methods, this activity has to implement the interface sensorlistener
-    // so that activity can be informed upon reception of the temperature value
-    //first create a new RawHttpSensor object, register your activity as a listener
-    //and invoke a request to retrieve a new temperature value
-    //display the retrieved temperature value
-    RawHttpSensor rawHttpSensor;
-    AbstractSensor sensor;
-    JsonSensor jsonSensor;
-    TextView displayValue;
-    String celsius;
-//create a new Textsensor object to to the same steps to retrieve a temperature value
+
+public class RestActivity extends AppCompatActivity implements SensorListener {
+
+    private static final String TAG = "RestActivity > Log";
+
+    RawHttpSensor httpSensor;
     TextSensor textSensor;
+    JsonSensor jsonSensor;
+    AbstractSensor sensor;
+
+    TextView valueView;
+    String unitString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rest);
-       displayValue=(TextView)findViewById(R.id.displayvalue_view);
-        displayValue.setText("waiting for temperature:");
-        celsius=" °C";
 
-        //we do a radiobutton to switch between the different sensors
-        //rawhttpsensor, textsensor or jsonsensor
-        //we create a method to switch between them
+        Log.d(TAG, "Rest activity started");
 
+        valueView = (TextView) findViewById(R.id.displayvalue_view);
+        valueView.setText(R.string.waiting);
+        unitString = " °C";
 
-        rawHttpSensor= new RawHttpSensor();
-        textSensor= new TextSensor();
-        jsonSensor= new JsonSensor();
-       // sensor=rawHttpSensor;
+        httpSensor = new RawHttpSensor();
+        textSensor = new TextSensor();
+        jsonSensor = new JsonSensor();
+        sensor = httpSensor;
 
-        //registerlistener and get temp value
         sensor.registerListener(this);
         sensor.getTemperature();
-
-
-
     }
 
-    public void onRadioButtonClick(View view){
-        RadioButton radioButton= (RadioButton) view;
+    public void onRadioButtonClick(View view) {
+        RadioButton radiobutton = (RadioButton) view;
+        boolean checked = radiobutton.isChecked();
 
         sensor.unregisterListener(this);
-        switch(radioButton.getId()){
+        switch (radiobutton.getId()) {
             case R.id.radio_group_http:
-                if(radioButton.isChecked()){
-                    sensor=rawHttpSensor;
+                if (checked) {
+                    sensor = httpSensor;
                 }
                 break;
             case R.id.radio_group_textsensor:
-                if(radioButton.isChecked()){
-                    sensor=textSensor;
+                if (checked) {
+                    sensor = textSensor;
                 }
                 break;
             case R.id.radio_group_jsonsensor:
-                if(radioButton.isChecked()){
-                    sensor=jsonSensor;
+                if (checked) {
+                    sensor = jsonSensor;
                 }
                 break;
         }
-        displayValue.setText("waiting for temperature:");
+        valueView.setText(R.string.waiting);
+
         sensor.registerListener(this);
         sensor.getTemperature();
     }
 
     @Override
     public void onReceiveSensorValue(double value) {
-        //display the sensor value
+        Log.d(TAG, "received sensor value: " + value);
 
-    String text= value  + celsius;
-        displayValue.setText(text);
-
+        String text = value + unitString;
+        valueView.setText(text);
     }
 
     @Override
     public void onReceiveMessage(String message) {
-
+        Log.d(TAG, "received sensor message: " + message);
     }
 }

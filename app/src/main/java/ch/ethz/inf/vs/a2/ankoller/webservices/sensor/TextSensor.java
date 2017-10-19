@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfiguration;
+
 import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfiguration.HOST;
 import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfiguration.REST_PORT;
 
@@ -14,7 +16,7 @@ import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfigurat
  * Created by anja on 13.10.2017.
  */
 
-public class TextSensor extends AbstractSensor implements Sensor {
+public class TextSensor extends AbstractSensor implements RemoteServerConfiguration {
 //implement missing methods
     //create requests by invoking openConnection() on a java.net.URL object
     //set header fields with setRequestProperty(header,value) on the

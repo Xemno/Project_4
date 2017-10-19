@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfiguration;
+
 import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfiguration.HOST;
 import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfiguration.REST_PORT;
 
@@ -18,7 +20,7 @@ import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfigurat
  * Created by anja on 13.10.2017.
  */
 
-public class JsonSensor extends AbstractSensor implements Sensor {
+public class JsonSensor extends AbstractSensor implements RemoteServerConfiguration {
     public static final String SENSOR_PATH= "/sunspots/Spot1/sensors/temperature";
     @Override
     //similar to textsensor also crete url connection but another head

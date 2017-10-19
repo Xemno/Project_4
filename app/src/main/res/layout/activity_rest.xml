@@ -23,21 +23,21 @@
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text= "RAW HTTP "
+            android:text= "@string/raw_http"
             android:id="@+id/radio_group_http"
             android:onClick="onRadioButtonClick"/>
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text= "TEXT"
+            android:text= "@string/text"
             android:id="@+id/radio_group_textsensor"
             android:onClick="onRadioButtonClick"/>
 
         <RadioButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text= "JSON"
+            android:text= "@string/json"
             android:id="@+id/radio_group_jsonsensor"
             android:onClick="onRadioButtonClick"/>
     </RadioGroup>

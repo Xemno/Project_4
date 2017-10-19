@@ -9,4 +9,7 @@
     <string name="t1_http">RAW HTTP</string>
     <string name="t1_text">TEXT</string>
     <string name="t1_json">JSON</string>
+    <string name="raw_http">RAW HTTP</string>
+    <string name="text">TEXT</string>
+    <string name="json">JSON</string>
 </resources>
