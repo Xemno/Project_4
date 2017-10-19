@@ -83,7 +83,7 @@ public class RestActivity extends AppCompatActivity implements SensorListener{
     public void onReceiveSensorValue(double value) {
         //display the sensor value
 
-    String text= displayValue + celsius;
+    String text= value  + celsius;
         displayValue.setText(text);
 
     }

@@ -13,15 +13,6 @@
     for ex you can selct between 3 different things
     In the textview is some padding needed, that it is not behind the buttons but below
     -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/displayvalue_view"
-        android:paddingTop="20dp"
-        android:paddingEnd="60dp"
-        android:paddingStart="60dp"
-        android:layout_below="@+id/radio_group"
-        />
 
 
     <RadioGroup
@@ -50,5 +41,15 @@
             android:id="@+id/radio_group_jsonsensor"
             android:onClick="onRadioButtonClick"/>
     </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/displayvalue_view"
+        android:paddingTop="20dp"
+        android:paddingEnd="60dp"
+        android:paddingStart="60dp"
+        android:layout_below="@+id/radio_group"
+        />
+
 
 </RelativeLayout>

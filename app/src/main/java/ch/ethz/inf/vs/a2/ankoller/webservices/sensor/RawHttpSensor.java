@@ -70,7 +70,7 @@ public class RawHttpSensor extends AbstractSensor implements RemoteServerConfigu
         return result;
     }
 
-    @Override
+    /**@Override
     public void getTemperature() {
 
     }
@@ -84,4 +84,6 @@ public class RawHttpSensor extends AbstractSensor implements RemoteServerConfigu
     public void unregisterListener(SensorListener listener) {
 
     }
+    */
+
 }
