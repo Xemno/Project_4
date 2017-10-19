@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.AbstractSensor;
+import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.JsonSensor;
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.RawHttpSensor;
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.SensorListener;
 import ch.ethz.inf.vs.a2.ankoller.webservices.sensor.TextSensor;
@@ -20,6 +21,7 @@ public class RestActivity extends AppCompatActivity implements SensorListener{
     //display the retrieved temperature value
     RawHttpSensor rawHttpSensor;
     AbstractSensor sensor;
+    JsonSensor jsonSensor;
     TextView displayValue;
     String celsius;
 //create a new Textsensor object to to the same steps to retrieve a temperature value
@@ -30,7 +32,7 @@ public class RestActivity extends AppCompatActivity implements SensorListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rest);
        displayValue=(TextView)findViewById(R.id.displayvalue_view);
-        displayValue.setText("wait to get temperature value:");
+        displayValue.setText("waiting for temperature:");
         celsius=" °C";
 
         //we do a radiobutton to switch between the different sensors
@@ -40,7 +42,8 @@ public class RestActivity extends AppCompatActivity implements SensorListener{
 
         rawHttpSensor= new RawHttpSensor();
         textSensor= new TextSensor();
-        sensor=rawHttpSensor;
+        jsonSensor= new JsonSensor();
+       // sensor=rawHttpSensor;
 
         //registerlistener and get temp value
         sensor.registerListener(this);
@@ -50,13 +53,30 @@ public class RestActivity extends AppCompatActivity implements SensorListener{
 
     }
 
-    public void onRadioButtonClick(View radioview){
-        RadioButton radioButton= (RadioButton) radioview;
-        boolean checked= radioButton.isChecked();
+    public void onRadioButtonClick(View view){
+        RadioButton radioButton= (RadioButton) view;
+
         sensor.unregisterListener(this);
         switch(radioButton.getId()){
-            //case R.id.
+            case R.id.radio_group_http:
+                if(radioButton.isChecked()){
+                    sensor=rawHttpSensor;
+                }
+                break;
+            case R.id.radio_group_textsensor:
+                if(radioButton.isChecked()){
+                    sensor=textSensor;
+                }
+                break;
+            case R.id.radio_group_jsonsensor:
+                if(radioButton.isChecked()){
+                    sensor=jsonSensor;
+                }
+                break;
         }
+        displayValue.setText("waiting for temperature:");
+        sensor.registerListener(this);
+        sensor.getTemperature();
     }
 
     @Override

@@ -17,9 +17,9 @@ import ch.ethz.inf.vs.a2.ankoller.webservices.res.HttpRawRequestImpl;
  */
 
 public class RawHttpSensor extends AbstractSensor implements RemoteServerConfiguration {
-    //public static final String SENSOR_PATH = "http://vslab.inf.ethz.ch:8081/sunspots/";
-   public static final String SENSOR_PATH="sunspots/Spot1/sensors/temperature";
-    //TODO: müesst das nicht: /sunspots/Spot1/sensors/temperature sein?
+    //public static final String SENSOR_PATH = "http://vslab.inf.ethz.ch:8081/sunspots/Spot1/sensors/temperature";
+    //8081 is the REST_PORT, so we need the rest as the path
+    public static final String SENSOR_PATH="sunspots/Spot1/sensors/temperature";
 
     public static final String TAG="HttpRawSensor > Log";
     //use request from a) and send it over a tcp connection use socket class and flush when using printwrier
