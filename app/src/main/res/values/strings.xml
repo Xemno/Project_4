@@ -3,4 +3,10 @@
     <string name="t2_manual">Manual xml</string>
     <string name="t2_library">SOAP library</string>
     <string name="waiting">Waiting for response...</string>
+    <string name="btn_text_rest">REST CLIENT</string>
+    <string name="btn_text_soap">SOAP CLIENT</string>
+    <string name="btn_text_server">SERVER CLIENT</string>
+    <string name="t1_http">RAW HTTP</string>
+    <string name="t1_text">TEXT</string>
+    <string name="t1_json">JSON</string>
 </resources>
