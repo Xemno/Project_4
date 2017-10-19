@@ -12,4 +12,9 @@
     <string name="raw_http">RAW HTTP</string>
     <string name="text">TEXT</string>
     <string name="json">JSON</string>
+    <string name="rest_client">REST CLIENT</string>
+    <string name="soap_client">SOAP CLIENT</string>
+    <string name="server_client">SERVER CLIENT</string>
+    <string name="ip_address">IP Address:</string>
+    <string name="port">Port:</string>
 </resources>

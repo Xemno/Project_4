@@ -16,14 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_rest"
-        android:text="REST CLIENT"
+        android:text="@string/rest_client"
         android:onClick="onButtonClick"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_soap"
-        android:text="SOAP CLIENT"
+        android:text="@string/soap_client"
         android:onClick="onButtonClick"
         />
     <Button
@@ -31,7 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_server"
-        android:text="SERVER CLIENT"
+        android:text="@string/server_client"
         android:onClick="onButtonClick"
         />
 </LinearLayout>

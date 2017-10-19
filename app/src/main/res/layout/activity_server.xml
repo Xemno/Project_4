@@ -10,7 +10,7 @@
         android:id="@+id/ip_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="IP Address:"
+        android:text="@string/ip_address"
         app:layout_constraintBaseline_toBaselineOf="@+id/ip_address_view"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -19,7 +19,7 @@
         android:id="@+id/port_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Port:"
+        android:text="@string/port"
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@+id/port_address_view" />

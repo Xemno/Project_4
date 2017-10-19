@@ -1,7 +1,9 @@
 package ch.ethz.inf.vs.a2.ankoller.webservices.sensor;
 
 import android.renderscript.ScriptGroup;
+import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -19,28 +21,35 @@ import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfigurat
 /**
  * Created by anja on 13.10.2017.
  */
-
 public class JsonSensor extends AbstractSensor implements RemoteServerConfiguration {
-    public static final String SENSOR_PATH= "/sunspots/Spot1/sensors/temperature";
-    @Override
-    //similar to textsensor also crete url connection but another head
-    //headerfile for accept is json
-    public String executeRequest() throws Exception {
-    URL url= new URL("http://" + HOST + ":" + REST_PORT + SENSOR_PATH);
-        HttpURLConnection httpURLConnection= (HttpURLConnection)url.openConnection();
-        httpURLConnection.setRequestProperty("Accept", "application/json");
 
-        String response="";
-        try{
-            InputStream inputStream= new BufferedInputStream(httpURLConnection.getInputStream());
-            BufferedReader bufferedReader= new BufferedReader(new InputStreamReader(inputStream));
-            String responsetemp;
-            while((responsetemp= bufferedReader.readLine())!= null){
-                response += "\n" + responsetemp;
+    private static final String TAG = "HttpRawSensor > Log";
+
+    public static final String SENSOR_PATH = "/sunspots/Spot1/sensors/temperature";
+
+    @Override
+    public String executeRequest() throws Exception {
+
+        Log.d(TAG, "executing request...");
+
+        URL url = new URL("http://" + HOST + ":" + REST_PORT + SENSOR_PATH);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestProperty("Accept", "application/json");
+
+        String response = "";
+
+        try {
+            InputStream is = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+
+            String temp;
+            while ((temp = reader.readLine()) != null) {
+                response += "\n" + temp;
             }
-            bufferedReader.close();
-        }finally {
-            httpURLConnection.disconnect();
+
+            reader.close();
+        } finally {
+            urlConnection.disconnect();
         }
 
         return response;
@@ -49,31 +58,18 @@ public class JsonSensor extends AbstractSensor implements RemoteServerConfigurat
     @Override
     public double parseResponse(String response) {
 
+        Log.d(TAG, "JsonSensor response gotten: " + response);
+
         double result;
-        try{
-            JSONObject jsonObject= new JSONObject(response);
-            result= jsonObject.getDouble("value");
 
-
-        }catch (Exception e){
-            result=Double.NaN;
-
+        try {
+            JSONObject json = new JSONObject(response);
+            result = json.getDouble("value");
+        } catch (JSONException e) {
+            Log.d(TAG, "Json exception occurred: " + e.toString());
+            result = Double.NaN;
         }
         return result;
     }
-
-    @Override
-    public void getTemperature() {
-
-    }
-
-    @Override
-    public void registerListener(SensorListener listener) {
-
-    }
-
-    @Override
-    public void unregisterListener(SensorListener listener) {
-
-    }
 }
+
