@@ -23,33 +23,31 @@ import static ch.ethz.inf.vs.a2.ankoller.webservices.http.RemoteServerConfigurat
  */
 public class JsonSensor extends AbstractSensor implements RemoteServerConfiguration {
 
-    private static final String TAG = "HttpRawSensor > Log";
-
     public static final String SENSOR_PATH = "/sunspots/Spot1/sensors/temperature";
 
     @Override
     public String executeRequest() throws Exception {
 
-        Log.d(TAG, "executing request...");
-
         URL url = new URL("http://" + HOST + ":" + REST_PORT + SENSOR_PATH);
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        urlConnection.setRequestProperty("Accept", "application/json");
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        httpURLConnection.setRequestProperty("Accept", "application/json");
 
         String response = "";
 
         try {
-            InputStream is = new BufferedInputStream(urlConnection.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            //similart to textsensor also create url connection but another headderfile
+            //similary create input and outputstram and open and close connection
+            InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
             String temp;
-            while ((temp = reader.readLine()) != null) {
+            while ((temp = bufferedReader.readLine()) != null) {
                 response += "\n" + temp;
             }
 
-            reader.close();
+            bufferedReader.close();
         } finally {
-            urlConnection.disconnect();
+            httpURLConnection.disconnect();
         }
 
         return response;
@@ -58,15 +56,12 @@ public class JsonSensor extends AbstractSensor implements RemoteServerConfigurat
     @Override
     public double parseResponse(String response) {
 
-        Log.d(TAG, "JsonSensor response gotten: " + response);
-
         double result;
 
         try {
-            JSONObject json = new JSONObject(response);
-            result = json.getDouble("value");
+            JSONObject jsonObject = new JSONObject(response);
+            result = jsonObject.getDouble("value");
         } catch (JSONException e) {
-            Log.d(TAG, "Json exception occurred: " + e.toString());
             result = Double.NaN;
         }
         return result;

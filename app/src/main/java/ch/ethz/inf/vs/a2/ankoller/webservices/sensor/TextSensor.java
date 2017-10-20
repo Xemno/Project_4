@@ -24,7 +24,7 @@ public class TextSensor extends AbstractSensor implements RemoteServerConfigurat
     //on a java url object
     //set header fields with setRequestProperty(header,value) on the HTTPURLConnection
 
-    private static final String TAG = "TextSensor > Log";
+
 
     private static final String SENSOR_PATH = "/sunspots/Spot1/sensors/temperature";
 
@@ -40,15 +40,15 @@ public class TextSensor extends AbstractSensor implements RemoteServerConfigurat
         String response = "";
 
         try {
-            InputStream is = new BufferedInputStream(httpURLConnection.getInputStream());
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
             String temp;
-            while ((temp = reader.readLine()) != null) {
+            while ((temp = bufferedReader.readLine()) != null) {
                 response += "\n" + temp;
             }
 
-            reader.close();
+            bufferedReader.close();
         } finally {
             httpURLConnection.disconnect();
         }
@@ -59,7 +59,6 @@ public class TextSensor extends AbstractSensor implements RemoteServerConfigurat
 
     @Override
     public double parseResponse(String response) {
-        Log.d(TAG, "TextSensor response gotten: " + response);
 
         double result;
         try{
