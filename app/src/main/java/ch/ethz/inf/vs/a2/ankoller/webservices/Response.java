@@ -9,7 +9,7 @@ import java.util.Vector;
  */
 
 public class Response {
-    private static final String ACTIVITY_TAG = "### SG ###";
+    private static final String ACTIVITY_TAG = "#Response Class: ";
 
     public String responseFolder(String dir){
         Vector<String> vs = ServerThread.getPartDirectories(dir);
@@ -41,11 +41,11 @@ public class Response {
         switch (aName){
             case "vibrate":
                 file = "State of actuator Vibrate:<br>";
-                state = Server.bVibrator;
+                state = Server.is_vibrating;
                 break;
             case "audio":
                 file = "State of actuator Audio:<br>";
-                state = Server.bMediaPlayer;
+                //state = Server.bMediaPlayer;
                 break;
             default:
                 return responseError();

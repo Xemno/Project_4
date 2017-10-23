@@ -22,6 +22,11 @@
         <activity android:name=".SoapActivity" />
         <activity android:name=".RestActivity" />
 
+        <service android:name=".Server" />
+
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
 </manifest>

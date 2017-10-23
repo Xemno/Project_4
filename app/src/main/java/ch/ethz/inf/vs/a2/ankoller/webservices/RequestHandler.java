@@ -5,7 +5,6 @@ package ch.ethz.inf.vs.a2.ankoller.webservices;
  */
 
 public class RequestHandler {
-    private static final String ACTIVITY_TAG = "### RH ###";
 
     public RequestHandler(){
 
@@ -22,7 +21,7 @@ public class RequestHandler {
             if (strings.length > 1){
                 state.settings = strings[1];
                 if (state.folder.matches(".+/audio")){
-                    Server.runMediaPlayer(state.settings.contains("value=on"));
+                    //Server.runMediaPlayer(state.settings.contains("value=on"));
                 }
                 else if (state.folder.matches(".+/vibrate")){
                     Server.vibrate(state.settings.contains("value=on"));

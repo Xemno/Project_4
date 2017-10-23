@@ -14,7 +14,7 @@ import java.util.Vector;
  */
 
 public class ServerThread extends Thread {
-    private static final String TAG = "Server Thread:";
+    private static final String TAG = "#Server Thread:";
 
     public static Vector<String> html_dir;
     public static String html_link;

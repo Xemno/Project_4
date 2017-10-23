@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -28,7 +29,7 @@ import java.util.Vector;
 
 public class Server extends Service implements SensorEventListener {
 
-    private static final String TAG = "Server Service: ";
+    private static final String TAG = "#Server Service: ";
     public static final String IP_KEY = "ch.ethz.inf.vs.a2.ankoller.webservices.IPKEY";
     public static final String PORT_KEY = "ch.ethz.inf.vs.a2.ankoller.webservices.IPPORT";
 
@@ -41,7 +42,7 @@ public class Server extends Service implements SensorEventListener {
     public static Vector<String> sensorValues;
     public static Vector<String> sensorNames;
 
-    public static boolean bVibrator;
+    public static boolean is_vibrating;
 
     @Override
     public void onCreate() {
@@ -54,17 +55,22 @@ public class Server extends Service implements SensorEventListener {
             default  : Log.i(TAG, "IP address is: " + ip_addr);
         }
 
-        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent("SERVER_Broadcast").putExtra(IP_KEY, ip_addr).putExtra(PORT_KEY, PORT));
+        LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(ServerActivity.BROADCAST).putExtra(IP_KEY, ip_addr).putExtra(PORT_KEY, PORT));
 
         int i = 0;
         for (Sensor sensor : sensorList){
             sensorMngr.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-    //        sensorValues.add("0 " + ResponseGenerator.getUnitString(sensor.getType()));
+            sensorValues.add("0 " + Response.getUnitString(sensor.getType()));
             i += 1;
         }
 
-    //    Thread thread = new Thread(new ServerThread(this, ip_addr, PORT));
-    //    thread.start();
+        if (vibrator == null){
+            vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+            is_vibrating = false;
+        }
+
+        Thread thread = new Thread(new ServerThread(this, ip_addr, PORT));
+        thread.start();
     }
 
     private String getIP(){
@@ -76,7 +82,7 @@ public class Server extends Service implements SensorEventListener {
                 for (Enumeration<InetAddress> eia = nI.getInetAddresses(); eia.hasMoreElements();){
                     InetAddress ia = eia.nextElement();
                     if (!ia.isLoopbackAddress() && ia.getHostAddress().length() <= 16){
-                        Log.i(TAG, ia.getHostAddress());
+                        Log.i(TAG, "Host Address: " + ia.getHostAddress());
                     }
                 }
             }
@@ -86,6 +92,15 @@ public class Server extends Service implements SensorEventListener {
 
     public static void vibrate(Boolean b){
         // vibrate vibrator
+        if (b) {
+            //vibrator.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
+            vibrator.vibrate(10000);
+            is_vibrating = true;
+        } else {
+            vibrator.cancel();
+            is_vibrating = false;
+
+        }
 
     }
 
@@ -93,7 +108,7 @@ public class Server extends Service implements SensorEventListener {
     public void onSensorChanged(SensorEvent sensorEvent) {
         String text = "";
         for (int i = 0; i < sensorEvent.values.length; i++){
-            text += String.valueOf(sensorEvent.values[i]) + " " + ResponseGenerator.getUnitString(sensorEvent.sensor.getType()) + " ";
+            text += String.valueOf(sensorEvent.values[i]) + " " + Response.getUnitString(sensorEvent.sensor.getType()) + " ";
         }
         sensorValues.set(sensorList.indexOf(sensorEvent.sensor), text);
     }
@@ -112,7 +127,7 @@ public class Server extends Service implements SensorEventListener {
                 ServerThread.serverSocket = null;
             }
             catch (IOException e){
-                Log.e(TAG, e.toString());
+                Log.i(TAG, e.toString());
             }
         }
     }

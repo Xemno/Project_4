@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Webservices</string>
-    <string name="t2_manual">Manual xml</string>
-    <string name="t2_library">SOAP library</string>
+    <string name="t2_manual">Manual XML</string>
+    <string name="t2_library">SOAP Library</string>
     <string name="waiting">Waiting for response...</string>
     <string name="btn_text_rest">REST CLIENT</string>
     <string name="btn_text_soap">SOAP CLIENT</string>
