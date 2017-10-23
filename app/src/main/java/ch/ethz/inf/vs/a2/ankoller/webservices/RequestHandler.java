@@ -21,7 +21,7 @@ public class RequestHandler {
             if (strings.length > 1){
                 state.settings = strings[1];
                 if (state.folder.matches(".+/audio")){
-                    //Server.runMediaPlayer(state.settings.contains("value=on"));
+                    Server.playMedia(state.settings.contains("value=on"));
                 }
                 else if (state.folder.matches(".+/vibrate")){
                     Server.vibrate(state.settings.contains("value=on"));
