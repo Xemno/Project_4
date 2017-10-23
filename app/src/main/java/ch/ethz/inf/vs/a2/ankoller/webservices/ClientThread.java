@@ -30,7 +30,7 @@ public class ClientThread extends Thread {
         BufferedReader in = null;
         OutputStream os = null;
         try {
-            Log.d(TAG, "Connected.");
+            Log.i(TAG, "Connected.");
 
             // read request
             RequestHandler rh = new RequestHandler();
@@ -50,7 +50,7 @@ public class ClientThread extends Thread {
 
             // generate response
             os = client.getOutputStream();
-            Log.d(TAG, "send response with folder " + state.folder);
+            Log.i(TAG, "send response with folder " + state.folder);
 
 
 
@@ -97,7 +97,7 @@ public class ClientThread extends Thread {
                 // close in- & outputstream
                 if (in != null) in.close();
                 if (os != null) os.close();
-                Log.d(TAG, "Client closed");
+                Log.i(TAG, "Client closed");
             }
             catch (IOException ioe){
                 Log.e(TAG, ioe.toString());

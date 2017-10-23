@@ -46,6 +46,7 @@ public class ServerActivity extends AppCompatActivity {
         tv_port = (TextView) findViewById(R.id.port_address_view);
         tv_ip = (TextView) findViewById(R.id.ip_address_view);
 
+        lbr = new localBroadcastReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(lbr, new IntentFilter(BROADCAST));
 
 
@@ -99,7 +100,6 @@ public class ServerActivity extends AppCompatActivity {
 
     public void onButtonClick (View view){
         if (button_Server.isChecked()){
-            Toast.makeText(this, "About to start!", Toast.LENGTH_SHORT).show();
             startService(new Intent(this, Server.class));
         }
         else {

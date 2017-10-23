@@ -57,6 +57,11 @@ public class Server extends Service implements SensorEventListener {
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(ServerActivity.BROADCAST).putExtra(IP_KEY, ip_addr).putExtra(PORT_KEY, PORT));
 
+        sensorMngr = (SensorManager) getSystemService(SENSOR_SERVICE);
+        sensorList = sensorMngr.getSensorList(Sensor.TYPE_ALL);
+        sensorValues = new Vector<>(sensorList.size());
+        sensorNames = getSensorNames();
+
         int i = 0;
         for (Sensor sensor : sensorList){
             sensorMngr.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
@@ -83,10 +88,11 @@ public class Server extends Service implements SensorEventListener {
                     InetAddress ia = eia.nextElement();
                     if (!ia.isLoopbackAddress() && ia.getHostAddress().length() <= 16){
                         Log.i(TAG, "Host Address: " + ia.getHostAddress());
+                        return ia.getHostAddress();
                     }
                 }
             }
-        } catch (SocketException se) {Log.e(TAG, se.toString());}
+        } catch (SocketException se) {Log.i(TAG, se.toString());}
         return ":";
     }
 
@@ -94,7 +100,7 @@ public class Server extends Service implements SensorEventListener {
         // vibrate vibrator
         if (b) {
             //vibrator.vibrate(VibrationEffect.createOneShot(10000, VibrationEffect.DEFAULT_AMPLITUDE));
-            vibrator.vibrate(10000);
+            vibrator.vibrate(500);
             is_vibrating = true;
         } else {
             vibrator.cancel();

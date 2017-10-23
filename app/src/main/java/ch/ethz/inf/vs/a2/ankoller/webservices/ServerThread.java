@@ -54,7 +54,7 @@ public class ServerThread extends Thread {
     public void run() {
         try {   // Here we start the server socket
             if (serverSocket == null) serverSocket = new ServerSocket(port); // create bound server socket to given port
-            Log.d(TAG, "Server listening on IP (" + ipAddr + ") and PORT (" + port + ")");
+            Log.i(TAG, "Server listening on IP (" + ipAddr + ") and PORT (" + port + ")");
 
             while (true){ // here we start/accept the connection
                 Socket client = serverSocket.accept();  // listens to a connection and accepts it
@@ -70,7 +70,7 @@ public class ServerThread extends Thread {
             try {
                 if (serverSocket != null) serverSocket.close();  // close this socket
                 serverSocket = null;
-                Log.d(TAG, "Socket closed");
+                Log.i(TAG, "Socket closed");
             }
             catch (IOException ioe){
                 Log.e(TAG, ioe.toString());
@@ -89,6 +89,8 @@ public class ServerThread extends Thread {
         for (Sensor sensor : Server.sensorList){
             vector.add("sensors/" + sensor.getName().toLowerCase().replace(" ", ""));
         }
+        Log.i(TAG, "All Directories: " + vector.toString());
+
         return vector;
     }
 
@@ -96,12 +98,12 @@ public class ServerThread extends Thread {
         Vector<String> vector = new Vector<>();
         if (dir.equals("")){
             for (String s : html_dir){
-                if (s.indexOf("/") < 0) vector.add(s);
+                if (!s.contains("/")) vector.add(s);
             }
         }
         else {
             for (String s : html_dir){
-                if (s.indexOf("/") >= 0 && s.replace(dir + "/", "").indexOf("/") < 0) vector.add(s);
+                if (s.contains("/") && !s.replace(dir + "/", "").contains("/")) vector.add(s);
             }
             if (vector.size() == 0) return null;
         }
