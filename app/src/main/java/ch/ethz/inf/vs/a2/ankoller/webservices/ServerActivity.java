@@ -48,23 +48,6 @@ public class ServerActivity extends AppCompatActivity {
 
         lbr = new localBroadcastReceiver();
         LocalBroadcastManager.getInstance(this).registerReceiver(lbr, new IntentFilter(BROADCAST));
-
-
-        /* Now we show the Network Interfaces in the Info Log*/
-        try {
-            Enumeration<NetworkInterface> netInts = NetworkInterface.getNetworkInterfaces();
-            for (NetworkInterface nI : Collections.list(netInts)){
-                Log.i(TAG, "Display name: " + nI.getDisplayName());
-                Log.i(TAG, "Name: " + nI.getName());
-                for (Enumeration<InetAddress> eia = nI.getInetAddresses(); eia.hasMoreElements();){
-                    InetAddress ia = eia.nextElement();
-                    if (!ia.isLoopbackAddress() && ia.getHostAddress().length() <= 16){
-                        Log.i(TAG, "Host Address: " + ia.getHostAddress());
-                    }
-                }
-            }
-        } catch (Exception e) {}
-
     }
 
     @Override
@@ -84,7 +67,7 @@ public class ServerActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Retrieve settings
+        // Settings
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         button_Server.setChecked(sharedPreferences.getBoolean(BUTTON_STATE, false));
         tv_ip.setText(sharedPreferences.getString(IP_STATE, DEFAULT_IP));

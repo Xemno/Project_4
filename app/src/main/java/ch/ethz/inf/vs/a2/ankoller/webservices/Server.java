@@ -39,10 +39,12 @@ public class Server extends Service implements SensorEventListener {
     private static SensorManager sensorMngr;
     public static List<Sensor> sensorList;
     private static Vibrator vibrator;
+    private static MediaPlayer mediaPlayer;
     public static Vector<String> sensorValues;
     public static Vector<String> sensorNames;
 
     public static boolean is_vibrating;
+    public static boolean is_playing;
 
     @Override
     public void onCreate() {
@@ -72,6 +74,12 @@ public class Server extends Service implements SensorEventListener {
         if (vibrator == null){
             vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
             is_vibrating = false;
+        }
+
+        if (mediaPlayer == null){
+            mediaPlayer = MediaPlayer.create(this, R.raw.sound);
+            mediaPlayer.setLooping(true);
+            is_playing = false;
         }
 
         Thread thread = new Thread(new ServerThread(this, ip_addr, PORT));
@@ -110,6 +118,17 @@ public class Server extends Service implements SensorEventListener {
 
     }
 
+    public static void playMedia (Boolean b){
+        if (b){
+            if (!mediaPlayer.isPlaying()) mediaPlayer.start();
+            is_playing = true;
+        }
+        else {
+            if (mediaPlayer.isPlaying()) mediaPlayer.pause();
+            is_playing = false;
+        }
+    }
+
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         String text = "";
@@ -136,6 +155,14 @@ public class Server extends Service implements SensorEventListener {
                 Log.i(TAG, e.toString());
             }
         }
+
+        mediaPlayer.stop();
+        if (vibrator != null) vibrator.cancel();
+        if (mediaPlayer != null) mediaPlayer.release();
+        mediaPlayer = null;
+        vibrator = null;
+        is_playing = false;
+        is_vibrating = false;
     }
 
     public static String getSensorValue(String sName){

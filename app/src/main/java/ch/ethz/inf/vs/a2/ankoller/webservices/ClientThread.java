@@ -36,12 +36,11 @@ public class ClientThread extends Thread {
             RequestHandler rh = new RequestHandler();
             StateClass state = new StateClass();
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            String aLine = in.readLine();
-            while (aLine != null){
-                //Log.d(ACTIVITY_TAG, aLine);
-                state = rh.requestFSM(aLine, state);
+            String line = in.readLine();
+            while (line != null){
+                state = rh.requestFSM(line, state);
                 if (state.state == 3) break;
-                aLine = in.readLine();
+                line = in.readLine();
             }
 
             if (state.folder.matches(".*/")) state.folder = state.folder.substring(0, state.folder.length() - 1);
@@ -51,8 +50,6 @@ public class ClientThread extends Thread {
             // generate response
             os = client.getOutputStream();
             Log.i(TAG, "send response with folder " + state.folder);
-
-
 
             String response_msg = "";
 
@@ -78,14 +75,12 @@ public class ClientThread extends Thread {
             }
 
             os.write("HTTP/1.1 200 OK\r\n".getBytes());
-            os.write("Server: Elias/1.0\r\n".getBytes());   /////////////////////////////////////////////////////////////// Ändern
-            os.write("Content-Type: text/html\r\n".getBytes()); // change!
+            os.write("Server: Qais/1.0\r\n".getBytes());
+            os.write("Content-Type: text/html\r\n".getBytes());
             os.write(("Content-Length: " + response_msg.length() + "\r\n").getBytes());
             os.write("\r\n".getBytes());
             os.write(response_msg.getBytes());
             os.flush();
-
-
         }
         catch (IOException ioe){
             Log.e(TAG, ioe.toString());

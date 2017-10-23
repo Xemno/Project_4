@@ -12,7 +12,7 @@ import static android.content.ContentValues.TAG;
  */
 
 public class Response {
-    private static final String ACTIVITY_TAG = "#Response Class: ";
+    private static final String TAG = "#Response Class: ";
 
     public String responseFolder(String dir){
         Vector<String> vs = ServerThread.getPartDirectories(dir);

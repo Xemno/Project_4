@@ -20,6 +20,7 @@ public class HttpRawRequestImpl implements HttpRawRequest {
         return request;
 
     }
+
     public String generateRequestExtended(String host, int port, String path, String accept) {
         //3 required headers Host, Accept and Connection
         String request =
