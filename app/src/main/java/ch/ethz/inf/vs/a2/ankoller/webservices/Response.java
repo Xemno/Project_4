@@ -16,7 +16,6 @@ public class Response {
 
     public String responseFolder(String dir){
         Vector<String> vs = ServerThread.getPartDirectories(dir);
-        Log.i(TAG, "Part Directories: " + vs.toString());
         if (vs != null){
             String links = "";
             for (String s : vs){
@@ -50,7 +49,7 @@ public class Response {
                 break;
             case "audio":
                 file = "State of actuator Audio:<br>";
-                //state = Server.bMediaPlayer;
+                state = Server.is_playing;
                 break;
             default:
                 return responseError();

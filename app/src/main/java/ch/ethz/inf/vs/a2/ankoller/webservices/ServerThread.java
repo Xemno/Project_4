@@ -36,8 +36,6 @@ public class ServerThread extends Thread {
         this.ipAddr = ipAddr;
         this.context = context;
 
-
-
         html_link = context.getString(R.string.html_link);
         html_link = html_link.replace("|#|#|PORT|#|#|", String.valueOf(port));
         html_link = html_link.replace("|#|#|IP|#|#|", ipAddr);
@@ -47,7 +45,6 @@ public class ServerThread extends Thread {
         html_submit = context.getString(R.string.html_submit);
         html_form = context.getString(R.string.html_form);
         html_error = context.getString(R.string.html_error);
-
     }
 
     @Override
@@ -89,8 +86,6 @@ public class ServerThread extends Thread {
         for (Sensor sensor : Server.sensorList){
             vector.add("sensors/" + sensor.getName().toLowerCase().replace(" ", ""));
         }
-        Log.i(TAG, "All Directories: " + vector.toString());
-
         return vector;
     }
 
