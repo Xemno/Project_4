@@ -23,7 +23,7 @@ public class ServerActivity extends AppCompatActivity {
     private static final String BUTTON_STATE = "ch.ethz.inf.vs.a2.ankoller.webservices.Button";
     private static final String IP_STATE = "ch.ethz.inf.vs.a2.ankoller.webservices.IP";
     private static final String PORT_STATE = "ch.ethz.inf.vs.a2.ankoller.webservices.PORT";
-    private static final String DEFAULT_PORT = "1234";
+    private static final String DEFAULT_PORT = "0000";
     private static final String DEFAULT_IP = "0.0.0.0";
 
     private ToggleButton button_Server;
@@ -45,10 +45,10 @@ public class ServerActivity extends AppCompatActivity {
         tv_ip = (TextView) findViewById(R.id.ip_address_view);
 
 
-        /* Now we show the Network Interfaces */
+        /* Now we show the Network Interfaces in the LOG*/
         try {
-            Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
-            for (NetworkInterface nI : Collections.list(nets)){
+            Enumeration<NetworkInterface> netInts = NetworkInterface.getNetworkInterfaces();
+            for (NetworkInterface nI : Collections.list(netInts)){
                 Log.i(TAG, "Display name: " + nI.getDisplayName());
                 Log.i(TAG, "Name: " + nI.getName());
                 for (Enumeration<InetAddress> eia = nI.getInetAddresses(); eia.hasMoreElements();){
@@ -88,8 +88,8 @@ public class ServerActivity extends AppCompatActivity {
 
     public class localBroadcastReceiver extends BroadcastReceiver {
         public void onReceive(Context context, Intent intent) {
-            tv_port.setText("" + intent.getIntExtra("PORT", 1234)); // default value 1234
-            tv_ip.setText(intent.getStringExtra("IP"));
+            tv_port.setText("" + intent.getIntExtra(Server.PORT_KEY, 0000)); // default value 0000
+            tv_ip.setText(intent.getStringExtra(Server.IP_KEY));
         }
     }
 
