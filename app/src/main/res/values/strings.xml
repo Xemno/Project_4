@@ -29,38 +29,6 @@
                 |#|#|FORM|#|#|\r\n
             </form>]]>
     </string>
-    <string name="html_error">
-        <![CDATA[
-            <!DOCTYPE HTML>\r\n
-            <head>\r\n
-                <script type=\"text/javascript\">\r\n
-                    function countdown(i){\r\n
-                        if (i == undefined){\r\n
-                            i = 5;\r\n
-                        }\r\n
-                        if (i > 0){\r\n
-                            document.getElementById(\"jsid\").innerHTML = \"Redirect to main page in \" + i + \"s\";\r\n
-                            i = i - 1;\r\n
-                            var timeout = window.setTimeout(\"countdown(\" + i + \")\", 1000);\r\n
-                        }\r\n
-                        else {\r\n
-                            window.location.href = \"/\";\r\n
-                        }\r\n
-                    }\r\n
-                </script>\r\n
-            </head>\r\n
-            <body>\r\n
-                <p>Page not found.</p>\r\n
-                <p id=\"jsid\"></p>\r\n
-                <script type=\"text/javascript\">\r\n
-                    countdown(5);\r\n
-                </script>\r\n
-                <noscript>\r\n
-                    To go to the main page click <a href=\"/\">here</a>\r\n
-                </noscript>\r\n
-            </body>\r\n
-        </html>]]>
-    </string>
     <string name="html_file">
         <![CDATA[
             <!DOCTYPE html>\r\n
