@@ -60,7 +60,6 @@ public class XmlSensor extends AbstractSensor {
                 response.append("\n");
             }
             responseReader.close();
-            //Log.d("LOG", response.toString());
             return response.toString();
         }
 

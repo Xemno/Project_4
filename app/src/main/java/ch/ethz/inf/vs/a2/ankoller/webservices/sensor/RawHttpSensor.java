@@ -16,14 +16,17 @@ import ch.ethz.inf.vs.a2.ankoller.webservices.res.HttpRawRequestImpl;
  * Created by anja on 13.10.2017.
  */
 
-class RawHttpSensor extends AbstractSensor implements RemoteServerConfiguration {
-    public static final String SENSOR_PATH = "http://vslab.inf.ethz.ch:8081/sunspots/";
-    //TODO: müesst das nicht: /sunspots/Spot1/sensors/temperature sein?
+public class RawHttpSensor extends AbstractSensor implements RemoteServerConfiguration {
+    //public static final String SENSOR_PATH = "http://vslab.inf.ethz.ch:8081/sunspots/Spot1/sensors/temperature";
+    //8081 is the REST_PORT, so we need the rest as the path
+    public static final String SENSOR_PATH="sunspots/Spot1/sensors/temperature";
 
     public static final String TAG="HttpRawSensor > Log";
+    //use request from a) and send it over a tcp connection use socket class and flush when using printwrier
 
     @Override
     public String executeRequest() throws Exception {
+
         HttpRawRequestImpl requestMaker= new HttpRawRequestImpl();
         Socket socket = new Socket(HOST, REST_PORT);
         //create a socket with string host and int rest_port
@@ -45,6 +48,8 @@ class RawHttpSensor extends AbstractSensor implements RemoteServerConfiguration 
         String temp;
         while((temp = bufferedReader.readLine())!=null){
             response += "\n" + temp;
+            //that is because headers require to have carriage return and nwline at end of each line
+
         }
         bufferedReader.close();
         //Closes the stream and releases any system resources associated with it.
@@ -65,7 +70,7 @@ class RawHttpSensor extends AbstractSensor implements RemoteServerConfiguration 
         return result;
     }
 
-    @Override
+    /**@Override
     public void getTemperature() {
 
     }
@@ -79,4 +84,6 @@ class RawHttpSensor extends AbstractSensor implements RemoteServerConfiguration 
     public void unregisterListener(SensorListener listener) {
 
     }
+    */
+
 }

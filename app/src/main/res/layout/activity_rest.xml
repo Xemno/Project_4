@@ -1,9 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_rest"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="ch.ethz.inf.vs.a2.ankoller.webservices.RestActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <!---RadtioButton allow user to select one option
+    used for optional sets that are mutually exlusive
+    for ex you can selct between 3 different things
+    In the textview is some padding needed, that it is not behind the buttons but below
+    -->
+
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text= "@string/raw_http"
+            android:id="@+id/radio_group_http"
+            android:onClick="onRadioButtonClick"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text= "@string/text"
+            android:id="@+id/radio_group_textsensor"
+            android:onClick="onRadioButtonClick"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text= "@string/json"
+            android:id="@+id/radio_group_jsonsensor"
+            android:onClick="onRadioButtonClick"/>
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/displayvalue_view"
+        android:paddingTop="20dp"
+        android:paddingEnd="60dp"
+        android:paddingStart="60dp"
+        android:layout_below="@+id/radio_group"
+        />
+
+
+</RelativeLayout>
