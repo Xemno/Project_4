@@ -1,8 +1,11 @@
 package ch.ethz.inf.vs.a2.ankoller.webservices;
 
 import android.hardware.Sensor;
+import android.util.Log;
 
 import java.util.Vector;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Qais on 21-Oct-17.
@@ -13,14 +16,16 @@ public class Response {
 
     public String responseFolder(String dir){
         Vector<String> vs = ServerThread.getPartDirectories(dir);
+        Log.i(TAG, "Part Directories: " + vs.toString());
         if (vs != null){
             String links = "";
             for (String s : vs){
-                String aLink = ServerThread.html_link;
-                aLink = aLink.replace("|#|#|FOLDER|#|#|", s);
-                aLink = aLink.replace("|#|#|SHOW|#|#|", s);
-                links += aLink + "\t\n";
+                String link = ServerThread.html_link;
+                link = link.replace("|#|#|FOLDER|#|#|", s);
+                link = link.replace("|#|#|SHOW|#|#|", s);
+                links += link + "\t\n";
             }
+            Log.i(TAG, links);
             return ServerThread.html_file.replace("|#|#|BODY|#|#|", links);
         }
         else return responseError();
